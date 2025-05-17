@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>StopWatch Web App</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
+        integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous" />
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
+        integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
+        crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"
+        integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN"
+        crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"
+        integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV"
+        crossorigin="anonymous"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+
+        body {
+            background-image: url("https://img.freepik.com/free-photo/white-alarm-clock-yellow-green-background-flat-lay_169016-30337.jpg?t=st=1739973277~exp=1739976877~hmac=1a147f64079254aa36d8c91de61578d6d8e4c3495ebc8830e02ffd4f6c29a30f&w=996");
+            height: 100vh;
+            background-size: cover;
+            font-family: "Poppins", serif;
+            align-items: center;
+        }
+
+        .card {
+            background-color: rgb(0, 0, 0, 0.6);
+            width: 500px;
+            border-radius: 15px;
+            border-style: solid 2px;
+            border-color: white;
+
+
+        }
+
+        .heading {
+            color: white;
+            font-size: 30px;
+            font-weight: 900;
+        }
+
+        .para {
+            color: rgb(255, 255, 0);
+            font-weight: 700;
+            font-size: 24px;
+        }
+
+        .bcolor {
+            background-color: white;
+            color: black;
+            width: 120px;
+            border-radius: 10px;
+            font-weight: 600;
+            transition: 0.3s ease-in-out;
+        }
+
+        .bcolor:hover {
+            background-color: transparent;
+            color: white;
+            border-style: solid 2px;
+            border-color: white;
+        }
+    </style>
+</head>
+
+<body class="d-flex flex-column justify-content-center ">
+    <div class="contanier">
+        <div class="row">
+            <div class="col-12 p-5">
+                <div class="card text-center p-3">
+                    <h1 class="heading">Stopwatch App</h1>
+                    <p class="para"><span id="minutes">00</span>:<span id="seconds">00</span>:<span id="tens">00</span>
+                    </p>
+                    <div class="button">
+                        <button class="btn bcolor" id="Start">Start</button>
+                        <button class="btn bcolor" id="Stop">Stop</button>
+                        <button class="btn bcolor" id="Reset">Reset</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+<script>
+    window.onload = function () {
+        let minutes = 0;
+        let seconds = 0;
+        let tens = 0;
+        let appendMinutes = document.querySelector('#minutes');
+        let appendSeconds = document.querySelector('#seconds');
+        let appendTens = document.querySelector('#tens');
+        let Startbtn = document.querySelector('#Start');
+        let Stopbtn = document.querySelector('#Stop');
+        let Resetbtn = document.querySelector('#Reset');
+        let Interval;
+
+        const starttimer = () => {
+            tens++;
+            if (tens <= 9) {
+                appendTens.innerHTML = '0' + tens;
+            }
+            if (tens > 9) {
+                appendTens.innerHTML = tens;
+            }
+            if (tens > 99) {
+                seconds++;
+                appendSeconds.innerHTML = '0' + seconds;
+                tens = 0;
+                appendTens.innerHTML = '0' + 0;
+            }
+
+
+            if (seconds > 9) {
+                appendMinutes.innerHTML = seconds;
+            }
+            if (seconds > 59) {
+                minutes++;
+                appendMinutes.innerHTML = '0' + minutes;
+                seconds = 0;
+                appendSeconds.innerHTML = '0' + 0;
+            }
+        }
+        Startbtn.onclick = () => {
+            clearInterval(Interval)
+            Interval = setInterval(starttimer, 10);
+        }
+        Stopbtn.onclick = () => {
+            clearInterval(Interval)
+        }
+        Resetbtn.onclick = () => {
+            clearInterval(Interval)
+            tens = '00'
+            seconds = '00'
+            minutes = '00'
+            appendTens.innerHTML = tens;
+            appendSeconds.innerHTML = seconds;
+            appendMinutes.innerHTML = minutes;
+        }
+    };
+</script>
+
+</html>
